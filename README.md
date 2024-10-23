@@ -1,4 +1,106 @@
 # nextjs1-1
+
+## 10월 23일 수업내용
+1. Static Resource
+  * 정적 자원 중 이미지 파일은 SEO에 많은 영향을 미칩니다.
+  * 다운로드 시간이 많이 걸리고 렌더링 후에 레이아웃이 변경되는 등 UX에 영향을 미칩니다
+  * 이것을 누적 레이아웃 이동(CLS)라고 합니다.
+  * Image 컴포넌트를 사용하면 CLS문제를 해결합니다.
+  * lazy loading 이미지 로드 시점을 필요할 때 까지 지연시키는 기술입니다.
+  * 이미지 사이즈 최적화로 사이즈를 10/10이하로 줄여 줍니다.
+  * PlaceHolder를 제공합니다.
+
+2. Image Component
+   * WebP와 같은 최신 이미지 포맷 및 최신 포맷을 지원하지 않는 브라우저를 위해 png나 jpge와 같은 예전 이미지 포맷도 제공합니다.
+   * Image 컴포넌트를 사용하면 다양한 props를 전달할 수 있습니다.
+   * 주요 Props src = " ", width = {500}, height = {500}, alt =" ", Placeholder = "blue", loading = "lazy"
+   * 정적 자원은 기본적으로 public 디렉토리에 저장합니다.
+   * 정적 자원은 번들링 이후에도 변하지 않기 때문입니다.
+   * 여러 종류의 정적 자원을 사용할 경우 publicdㅢ root에 각각 디렉토리를 만들어 사용합니다.
+   * Image도 마찬 가지로 .public/images 디렉토리를 만들고 사용합니다.
+   * 이미지를 불러오는 방법은 직접 불러오는 방법과 import하는 방법 2가지가 있습니다.
+   * 이미지의 경로 /images/이미지이름.확장자 로 합니다 이 떄 publicdㅡㄴ 생략합니다.
+   ```JavaScript
+    import Image from "next/image";
+    import foo from "/public/images/test1.png";
+    
+    export default function About() {
+      return (
+        <>
+          <h1>About</h1>
+          <h3>About...</h3>
+          <Image
+            src="/images/test2.png"
+            alt="lighthouse"
+            width={300}
+            height={200}
+          ></Image>
+    
+          <Image src={foo} alt="lighthouse" width={300} height={200}></Image>
+        </>
+      );
+    }
+
+   ```
+
+   1. Image Component - Remote
+      * Pixabay와 같은 외부 이미지를 사용하려면 testconfig.mjs에 URL을 추가해줘야 합니다.
+      * 만일 파일이 없다면 Project root에 추가해 주면 됩니다.
+      * 파일의 초기 상태는 다음과 같습니다.
+      * enxtConfig에 ㅑmages를 추가하합니다.
+      * 간단하게 domains만 등록해줘도 됩니다.
+     
+    ```JavaScript
+      /** @type {import('next').NextConfig} */
+    const nextConfig = {
+      images: {
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "cdn.pixabay.com",
+          },
+        ],
+      },
+    };
+    
+    export default nextConfig;
+
+    ```
+
+3. 컴포넌트 구성
+   * 컴포넌트는 세 가지로 분류하고 각 컴포넌트와 관련된 스타일 및 테스트 파일을 ㅏㅌ은 곳에 두어야 합니다.
+   * 코드를 더 효울적으로 구성하기 위해 아토믹 디자인 원칙에 따라 디렉토리를 구성합니다.
+   * atoms : 가장 기본적인 컴포넌트 관리 예 : button, input, p 와 같은 표준 HTML요소를 감싸는 용도로 사용되는 컴포넌트
+   * molecules : atom에 속한 컴포넌트 여러 개를 조합하여 복잡한 구조로 만든 컴포넌트 관리 예: input과 labeldㅡㄹ 합쳐ㅓ 만든 새로운 컴포넌트
+   * organisms : molecules와 atoms를 섞어서 더 복잡하게 만든 컴포넌트 관리 예 : footer나 carousel 컴포넌트
+   * templates : 위의 모든 컴포넌트를 어떻게 배치할지 결정해서 사용자가 접근할 수 있는 페이지
+   * button 컴포넌트를 예를 들면 다음과 같이 최소환 세 개의 파일을 만들어야 합니다.
+   *  컴포넌트 파일, 스타일 파일, 테스트 파일입니다.
+   *  이렇게 컴포넌트를 구성하면 필요할 떄 컴포넌트를 찾고 수정하기 쉽습니다.
+   *  mkdir components/atoms/button
+   *  cd components/atoms/button
+   *  touch index.js
+   *  touch button.test.js
+   *  touch button.styled.js
+4. 스타일 파일 구성
+   * 스타일 파일은 앱에서 어떤 스타일 관련 기술을 사용하는가에 따라 구성 달라집니다.,
+   * Emotion, styled-components, JSS와 같은 CSS-in-JS 프레임워크의 경우 컴포넡트 별로 스타일 파일을 만듭니다. 이렇게 하면 스타일 변경도 쉽습니다.
+   * 만일 컬러 팔레트, 테마, 미디어 쿼리와 같은 공통 스타일의 경우는 styles/ 디렉토리를 사용합니다.  
+   4-1 lib 파일 수성
+     * lib파일은 서드파티 라이브러리를 감싸는 스크립트를 말합니다.
+     * lib파일은 특정 라이브러리에 특화된 것 입니다. 예 : GraphQL
+     * 만일 GraphQL을 사용한다면 클라이언트를 초기화 하고 질의문과 뮤테이션을 저장하는 등의 작업이 필요합니다.
+     * 먼저 이런 스크립트를 좀 더 모듈화하기 위해 프로젝트 root에 lib/graphql/  디렉토리를 만듭니다.
+5. 데이터 불러오기
+   * Next는 클라이언트와 서버 모두에서 데이터를 불러올 수 있습니다.
+   * 서버는 다음 두 가지 상황에서 데이터를 불러올 수 있습니다.
+   * 정적 페이지를 만들 때 getStaticProps함수를 사용해서 빌드 시점에 데이터를 불러올 수 있습니다.
+   * 서버가 페이지를 렌더링할 때 getServerSideProps를 통해 실행 도중 데이터를 불러올 수도 있습니다.
+   * 데이터베이스에서 데이터를 가져 올 수도 있지만 안전하지 않기 때문에 권장하지 않습니다. 데이터베이스의 접근은 백엔드에서 처리하는 것이 좋습니다.
+   * Next는 프론트엔드만 담당하는 것이 좋습니다.
+    
+
+
 ## 9월 11일 수업내용
 ### ECMAScript 기능 중 파이프라인 연산자를 사용해보자
 ```JavaScript
