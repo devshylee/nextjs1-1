@@ -18,6 +18,30 @@
 * Axios를 사용하는 이유
   1. 클라이언트와 서버 모두 동일하게 적용할 수 있습니다.
   2. API를 원활하게 불러올 수 있습니다.
+ 
+### REST API
+* REST API란 CRUD..
+* CRUD란..
+* REST API란 REST의 규칙을 적용한 API를 의미합니다.
+* API 설계 규칙
+
+### JSON SERVER
+* Backend가 개발되기 전이나, 아직 외부 API가 결정되지 않았다면 local에 JSON Server를 구축하고 Frontend 개발을 기에 적합한 node 패키지입니다.
+* 다음 명령으로 json-server를 구축합니다
+* ```
+  npm -g json-server
+  ```
+
+### Axios란
+* 특징, 장단점
+
+* Fetch API란
+* 특징, 장단점
+
+### Axios 사용하기
+
+### 개선할 사항
+* rest-api의 page.jsx useState사용하여 개선하기
 
 ## 10월 23일 수업내용
 1. Static Resource
