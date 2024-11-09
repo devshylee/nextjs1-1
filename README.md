@@ -1,6 +1,51 @@
 # nextjs1-1
 # 201930122 이성현
 
+## 11월 6일 수업내용
+### Styled JSX
+* Styled JSX는 CSS-in-JS 라이브러리 입니다. 내장 모듈이기 떄문에 설치가 필요 없습니다.
+* 즉 CSS 속성 지정을 위해 자바스크립트를 사용할 수 있는 라이브러리 입니다.
+* 다음 코드는 간단한 예입니다.
+* ```javascript
+   export default function Button(props){
+   return (
+   <>
+   <button className="button">{props.children}</button>
+  <style jsx>{
+   .button{'
+  padding : 1em;
+  border-raduis L 1em;
+  border: none;
+  background:green;
+  color : white;
+  '}</style>
+  }
+  </>
+  )
+  }
+  ```
+* 클라이언트에서 리액트 하이드레이션이 끝나면 CSS를 다시 생성해야 합니다.
+* IDE나 코드 편집기 등 개발 도구에 대한 지원이 부족합니다.
+* 문법 하이라이팀 자동 완성 린트 기능을 제공하지 않습니다
+* 코드 내에서 CSS에 대한 읮존성이 점점 커지기 때문에 웹번들도 커지고 느려집니다.
+* 서버에 미리 CSS를 생성해도 클라이언트에서 리액트 하이드레이션이 끝나면 CSS를 다시 생성해야 합니다.
+
+## Class
+* 클래스들은 컴포넌트 스코프를 가집니다.
+* 생성된 HTML 페이지 소스를 보면 class이름이 바뀌어 있는 것을 확인할 수 있습니다.
+* Styled JSX때와 마찬가지로 이전 고유한 이름 때문에 다른 파일이라면 같은 class명을 사용해도 충돌이 일어나지 않습니다.
+* 만일 전역 CSS를 선언하고 싶다면 styles/les/globals.css를 만들고 사용합니다.
+* 파일명은 반드시 globlas가 아니어도 되지만 암묵적으로 합의는 가능하면 지키는 것이 좋습니다.
+* ```javascript
+   html, body{
+   padding : 0;
+  margin: 0;
+  font-family: sans-serif;
+  }
+  ```
+* 이제 ...app.js에 import 해주면 모든 컴포넌트에 적용됩니다.
+* 또 한가지 방법은 class로 선언된 요소에 ;globla 키워드를 추가해 줍니다. .button:global{}
+
 ## 10월 30일 수업내용
 ### 데이터 불러오기
 * Next는 클라이언트와 서버 모두에서 데이터를 불러올 수 있습니다.
