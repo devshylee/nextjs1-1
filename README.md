@@ -1,6 +1,89 @@
 # nextjs1-1
 # 201930122 이성현
 
+## 11월 27일 수업내용
+###Context API vs Redux 장단점  
+Context API  
+장점  
+React 내장 기능으로 외부 라이브러리 불필요  
+설정이 간단하고 빠르게 시작 가능  
+코드가 비교적 간결함  
+소규모 프로젝트나 간단한 상태 관리에 적합  
+
+단점  
+상태 업데이트 로직이 커질 경우 관리가 어려움  
+컴포넌트 트리의 리렌더링 성능 이슈 (Prop Drilling과 유사한 문제 발생)  
+디버깅 도구가 제한적임  
+Redux  
+
+장점  
+중앙 집중식 상태 관리로 상태 추적이 용이  
+미들웨어(Redux Thunk, Redux Saga)를 통한 비동기 처리 지원  
+강력한 디버깅 도구(Redux DevTools) 제공  
+상태 관리가 복잡한 대규모 프로젝트에 적합  
+
+단점  
+초기 설정이 복잡하고 코드가 장황해질 수 있음  
+소규모 프로젝트에서는 과도한 도구가 될 수 있음  
+학습 곡선이 비교적 높음  
+
+### Context API vs Redux 비교
+
+| **특징**       | **Context API**                 | **Redux**                         |
+|----------------|---------------------------------|-----------------------------------|
+| **규모**        | 소규모 프로젝트에 적합           | 대규모 프로젝트에 적합             |
+| **복잡성**      | 간단                            | 복잡                               |
+| **학습 난이도** | 낮음                            | 높음                               |
+| **성능**        | 상태 변경 시 리렌더링 문제 있음   | 성능 최적화를 위한 도구 제공        |
+| **유연성**      | 간단한 상태 관리에 적합          | 복잡한 상태 및 비동기 로직 관리 가능 |
+| **디버그 도구** | 제한적 (React DevTools 활용)      | 강력함 (Redux DevTools 지원)       |
+
+### Redux 실습: Counter Component
+
+이 실습에서는 Redux를 사용하여 Counter 컴포넌트를 구현합니다. 주요 개념으로 `useSelector`, `increment`, `decrement`, `configureStore`, `counterReducer`, `counterSlice` 등을 학습합니다.
+
+---
+
+#### 1. Redux 설치
+먼저 Redux 툴킷과 React-Redux 라이브러리를 설치합니다.
+
+- **명령어**:  
+  `npm install @reduxjs/toolkit react-redux`
+
+---
+
+#### 2. Redux 설정
+Redux 상태 관리를 위한 설정을 진행합니다.
+
+- `createSlice`를 사용하여 Counter 상태를 정의합니다. 
+  - `name`: 슬라이스 이름
+  - `initialState`: 초기 상태
+  - `reducers`: 상태 변경 함수 (e.g., `increment`, `decrement`)
+  
+- `configureStore`를 사용하여 Redux Store를 생성합니다.  
+  - `reducer`: `counterSlice`에서 정의한 리듀서를 등록합니다.
+
+---
+
+#### 3. React와 Redux 연결
+`Provider` 컴포넌트를 사용하여 Redux Store를 React 애플리케이션에 연결합니다.  
+`Provider`는 `store`를 전달하여 애플리케이션 전체에서 Redux 상태를 사용할 수 있도록 설정합니다.
+
+---
+
+#### 4. Counter Component 구현
+- `useSelector`: Redux Store에서 상태 값을 가져옵니다.
+- `useDispatch`: Redux 액션을 실행합니다.  
+- 버튼을 클릭하여 `increment`와 `decrement` 액션을 디스패치합니다.  
+- 상태 값은 `useSelector`로 가져온 값을 화면에 표시합니다.
+
+---
+
+#### 5. Counter Component 사용
+Counter 컴포넌트를 App 컴포넌트에서 사용하여 동작을 확인합니다.  
+브라우저에서 Counter 값을 증가 또는 감소시키는 버튼을 사용할 수 있습니다.
+
+
 ## 11월 20일 수업내용
 ### Props 흐름의 이해
 Next.js의 데이터 흐름은 단방향으로 이루어 집니다.
