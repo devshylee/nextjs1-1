@@ -1,8 +1,11 @@
 # nextjs1-1
 # 201930122 이성현
+## 11월 29일 수업내용
+### Github Pages
+
 
 ## 11월 27일 수업내용
-###Context API vs Redux 장단점  
+### Context API vs Redux 장단점  
 Context API  
 장점  
 React 내장 기능으로 외부 라이브러리 불필요  
